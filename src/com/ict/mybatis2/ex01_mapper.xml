@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="member">
+																	<!-- resultType = 객체 사용 -->
+	 <!-- select 무조건 resultType이 있다 -->
+	 <select id="getSelectAll" resultType="com.ict.mybatis2.Ex01_VO" >
+		 <!-- 전체보기 -->
+	 	select * from member
+	 </select>
+	
+															<!-- resultType = 객체사용, parameterType = String 사용 -->
+	 <select id="getSelectOne" resultType="com.ict.mybatis2.Ex01_VO" parameterType="String">
+	 	<!-- 선택한 idx 골라서 보기 -->
+	 	select * from member where idx=#{idx}
+	 </select>
+	 
+	 						<!-- resultType= int 사용 -->
+	 <select id="getCount" resultType="int">
+	 	<!-- 결과가 숫자로 나오기 때문에 int 사용 -->
+	 	select count(*) from member 
+	 </select>
+	 
+	 <!-- insert, delete, update는 무조건 resultType이 없고 무조건 parameterType만 있다(결과가 int이기 때문임) -->
+	 <insert id="getInsert" parameterType="com.ict.mybatis2.Ex01_VO">
+	 	insert into member(idx, id, password, username, age, regdate) 
+	 	 values(#{idx}, #{id}, #{password}, #{username}, #{age}, #{regdate})
+	 </insert>
+	 
+	 <!-- 파라미터를 VO 사용 -->
+	 <delete id="getDelete" parameterType="String">
+	 	delete from member where idx=#{idx}
+	 </delete>
+	 
+	 <!-- 파라미터를 VO 사용 -->
+	 <update id="getUpdate" parameterType="com.ict.mybatis2.Ex01_VO">
+		update member
+		set
+			username=#{username}, 
+			age=#{age} 
+			where idx=#{idx} 
+	 </update>
+	 <select id="login"  resultType="com.ict.mybatis2.Ex01_VO"  parameterType="com.ict.mybatis2.Ex01_VO">
+	 	select * from member where id=#{id} 
+	 </select>
+</mapper>
